@@ -21,7 +21,7 @@ public class UserResponse {
     private String fullName;
     private UserRole role;
 
-    private List<ReservationBasicResponse> reservation;
-    private List<LoanBasicResponse> loan;
+    private List<ReservationBasicResponse> reservations;
+    private List<LoanBasicResponse> loans;
     
 }

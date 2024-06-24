@@ -7,6 +7,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import Riwi.Bookstore.api.dto.request.UserRequest;
+import Riwi.Bookstore.api.dto.request.UserUpdateRequest;
 import Riwi.Bookstore.api.dto.response.UserResponse;
 import Riwi.Bookstore.api.mappers.UserMapper;
 import Riwi.Bookstore.domain.entities.User;
@@ -39,12 +40,23 @@ public class UserService implements IUserService {
         return this.userMapper.userToUserResponse(this.find(id));
     }
 
+
     @Override
-    public UserResponse update(UserRequest request, Long id) {
+    public UserResponse update(UserUpdateRequest request, Long id) {
+        // Encuentra el usuario por ID
         User user = this.find(id);
-        user = this.userMapper.requestToEntity(request);
-        return this.userMapper.userToUserResponse(this.userRepository.save(user));
+
+        // Actualiza el usuario con los datos del request
+        this.userMapper.updateUser(request, user);
+
+        // Guarda el usuario actualizado en el repositorio
+        User updatedUser = this.userRepository.save(user);
+
+        // Mapea el usuario actualizado a UserResponse y retorna
+        return this.userMapper.userToUserResponse(updatedUser);
     }
+
+  
 
     @Override
     public void delete(Long id) {
@@ -77,5 +89,7 @@ public class UserService implements IUserService {
         return this.userRepository.findById(id)
         .orElseThrow(()->new BadRequestException(ErrorMessage.idNotFound("user")));
     }
+
+   
     
 }

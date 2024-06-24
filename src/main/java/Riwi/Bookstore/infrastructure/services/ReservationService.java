@@ -61,8 +61,8 @@ public class ReservationService implements IReservationService {
     public ReservationResponse update(ReservationRequest request, Long id) {
 
         Reservation reservation = this.find(id);
-
-        this.reservationMapper.updateReservation(request, this.reservationRepository.save(reservation));
+         reservation = this.reservationMapper.requestToEntity(request);
+        // this.reservationMapper.updateReservation(request, this.reservationRepository.save(reservation));
 
 
         User user = this.userRepository.findById(request.getUser())
@@ -75,10 +75,6 @@ public class ReservationService implements IReservationService {
         reservation.setBook(book);
         reservation.setUser(user);
         reservation.setId(id);
-        
-        // reservation = this.reservationMapper.requestToEntity(request);
-
-        
 
          return this.reservationMapper.reservationToReservationResponse(reservation);
     }

@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import Riwi.Bookstore.api.dto.request.UserRequest;
+import Riwi.Bookstore.api.dto.request.UserUpdateRequest;
 import Riwi.Bookstore.api.dto.response.UserResponse;
 import Riwi.Bookstore.infrastructure.abstrac_service.IUserService;
 import Riwi.Bookstore.utils.enums.SortType;
@@ -59,7 +60,7 @@ public class UserController {
      @PutMapping(path = "/{id}")
     public ResponseEntity<UserResponse> update(
             @Validated
-            @RequestBody UserRequest request,
+            @RequestBody UserUpdateRequest request,
             @PathVariable Long id) {
         return ResponseEntity.ok(this.userService.update(request, id));
     }
